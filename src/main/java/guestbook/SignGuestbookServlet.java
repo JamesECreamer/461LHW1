@@ -31,6 +31,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.JOptionPane;
 
  
 
@@ -75,10 +76,12 @@ public class SignGuestbookServlet extends HttpServlet {
  
 
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+        
+        if(greeting.getProperty("user") != null){
 
-        datastore.put(greeting);
+        	datastore.put(greeting);
 
- 
+        }
 
         resp.sendRedirect("/guestbook.jsp?guestbookName=" + guestbookName);
 

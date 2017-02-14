@@ -49,6 +49,12 @@ public class Greeting implements Comparable<Greeting> {
         return content;
 
     }
+    
+    public Date getDate() {
+    	
+    	return date;
+    	
+    }
 
     @Override
 
@@ -56,11 +62,11 @@ public class Greeting implements Comparable<Greeting> {
 
         if (date.after(other.date)) {
 
-            return 1;
+            return -1;
 
         } else if (date.before(other.date)) {
 
-            return -1;
+            return 1;
 
         }
 

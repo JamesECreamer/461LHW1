@@ -52,7 +52,7 @@
 
 %>
 
-<p>Hello, ${fn:escapeXml(user.nickname)}! (You can
+<p align="center">Hello, ${fn:escapeXml(user.nickname)}! (You can
 
 <a href="<%= userService.createLogoutURL(request.getRequestURI()) %>">sign out</a>.)</p>
 
@@ -62,11 +62,17 @@
 
 %>
 
-<p>Goodbye!
+<p align="center">Hello!
 
 <a href="<%= userService.createLoginURL(request.getRequestURI()) %>">Sign in</a>
 
 to include your name with greetings you post.</p>
+
+<%
+
+%>
+
+	<p align="center"> You can post to the Blog only after you sign in. </p>
 
 <%
 
@@ -93,11 +99,11 @@ to include your name with greetings you post.</p>
 	
 	Collections.sort(greetings); 
 
-    if (greetings.isEmpty()) {
+	if (greetings.isEmpty()) {
 
         %>
 
-        <p>Guestbook '${fn:escapeXml(guestbookName)}' has no messages.</p>
+        <p align="center">This Blog has no messages.</p>
 
         <%
 
@@ -105,11 +111,12 @@ to include your name with greetings you post.</p>
 
         %>
 
-        <p>Welcome to the Blog '${fn:escapeXml(guestbookName)}'.</p>
+        <p align="center">Welcome to the Blog of James and Eric.</p>
 
         <%
 
         for (Greeting greeting : greetings) {
+        	
 
             pageContext.setAttribute("greeting_content",
 
@@ -128,10 +135,14 @@ to include your name with greetings you post.</p>
                 pageContext.setAttribute("greeting_user",
 
                                          greeting.getUser());
+                
+                pageContext.setAttribute("greeting_date",
+
+                       					 greeting.getDate());
 
                 %>
 
-                <p><b>${fn:escapeXml(greeting_user.nickname)}</b> wrote:</p>
+                <p><b>${fn:escapeXml(greeting_user.nickname)}</b> wrote at <b>${fn:escapeXml(greeting_date)}</b>:</p>
 
                 <%
 
@@ -147,9 +158,9 @@ to include your name with greetings you post.</p>
 
     }
 
+    
+    if( user != null ){
 %>
-
- 
 
     <form action="/ofysign" method="post">
 
@@ -160,8 +171,11 @@ to include your name with greetings you post.</p>
       <input type="hidden" name="guestbookName" value="${fn:escapeXml(guestbookName)}"/>
 
     </form>
-
- 
+    
+<%
+    
+    }
+ %>
 
   </body>
 

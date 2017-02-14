@@ -82,7 +82,7 @@ public class OfySignGuestbookServlet extends HttpServlet {
         //List<Key<Greeting>> keys = ofy().load().type(Greeting.class).keys().list();
         //ofy().delete().keys(keys).now();
 
-        resp.sendRedirect("/guestbook.jsp?guestbookName=" + guestbookName);
+        resp.sendRedirect("/ofyguestbook.jsp?guestbookName=" + guestbookName);
 
     }
 

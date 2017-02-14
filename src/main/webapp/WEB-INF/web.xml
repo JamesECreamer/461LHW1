@@ -4,26 +4,26 @@
  
 
 <web-app xmlns="http://java.sun.com/xml/ns/javaee" version="2.5">
-	
-	<servlet>
+    
+    <servlet>
 
-        <servlet-name>sign</servlet-name>
+        <servlet-name>ofysign</servlet-name>
 
-        <servlet-class>guestbook.SignGuestbookServlet</servlet-class>
+        <servlet-class>guestbook.OfySignGuestbookServlet</servlet-class>
 
     </servlet>
 
     <servlet-mapping>
 
-        <servlet-name>sign</servlet-name>
+        <servlet-name>ofysign</servlet-name>
 
-        <url-pattern>/sign</url-pattern>
+        <url-pattern>/ofysign</url-pattern>
 
     </servlet-mapping>
     
     <welcome-file-list>
 
-        <welcome-file>guestbook.jsp</welcome-file>
+        <welcome-file>ofyguestbook.jsp</welcome-file>
 
     </welcome-file-list>
     
