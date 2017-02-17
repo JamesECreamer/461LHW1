@@ -14,7 +14,6 @@ import com.googlecode.objectify.Key;
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
 
-
  
 
 import java.io.IOException;
@@ -31,6 +30,8 @@ import javax.servlet.http.HttpServletResponse;
  
 
 public class OfySignGuestbookServlet extends HttpServlet {
+	
+	public static boolean ListAll = false;
 
     public void doPost(HttpServletRequest req, HttpServletResponse resp)
 
@@ -57,10 +58,12 @@ public class OfySignGuestbookServlet extends HttpServlet {
         //Key guestbookKey = KeyFactory.createKey("Guestbook", guestbookName);
 
         String content = req.getParameter("content");
+        
+        String title = req.getParameter("title");
 
         Date date = new Date();
         
-        Greeting greeting = new Greeting(user, content);
+        Greeting greeting = new Greeting(user, content, title);
 
         /*Entity greeting = new Entity("Greeting", guestbookKey);
 
@@ -85,5 +88,30 @@ public class OfySignGuestbookServlet extends HttpServlet {
         resp.sendRedirect("/ofyguestbook.jsp?guestbookName=" + guestbookName);
 
     }
+    
+    @Override
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException{
+
+    	String guestbookName = req.getParameter("guestbookName");
+    	
+    	if(req.getParameter("subscribe") != null){
+			UserService userService = UserServiceFactory.getUserService();
+			User user = userService.getCurrentUser();
+			if(GAEJCronServlet.emails.contains(user.getEmail()) == false){
+				GAEJCronServlet.emails.add(user.getEmail());
+			}
+		} else if(req.getParameter("unsubscribe") != null){
+			UserService userService = UserServiceFactory.getUserService();
+			User user = userService.getCurrentUser();
+			if(GAEJCronServlet.emails.contains(user.getEmail()) == true){
+				GAEJCronServlet.emails.remove(user.getEmail());
+			}
+		} else if(req.getParameter("ListAll") != null){
+			ListAll = !ListAll;
+		}
+    	
+    	resp.sendRedirect("/ofyguestbook.jsp?guestbookName=" + guestbookName);
+    	
+	}
 
 }
